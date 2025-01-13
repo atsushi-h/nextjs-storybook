@@ -33,7 +33,9 @@ export default function RootLayout({
       <head>
         <ColorSchemeScript />
       </head>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased flex min-h-screen flex-col items-center justify-center`}
+      >
         <GlobalClientComponent />
         <Provider>
           <main className="flex w-screen flex-1 flex-col items-center justify-center">
