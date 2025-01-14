@@ -2,17 +2,15 @@
 
 import { useEffect } from 'react';
 
-import axios from 'axios';
+import axios, { setCsrfToken } from '@/lib/axios';
 
 export default function GlobalClientComponent() {
   axios.defaults.withCredentials = true;
 
   useEffect(() => {
     const getCsrfToken = async () => {
-      const { data } = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/auth/csrf`,
-      );
-      axios.defaults.headers.common['csrf-token'] = data.csrfToken;
+      const { data } = await axios.get('/auth/csrf');
+      setCsrfToken(data.csrfToken);
     };
     getCsrfToken();
   }, []);

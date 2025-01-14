@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import axios from 'axios';
 import { zodResolver } from 'mantine-form-zod-resolver';
 import { useForm } from '@mantine/form';
 import { Anchor, TextInput, Button, Group, Stack, PasswordInput, Alert } from '@mantine/core';
@@ -10,6 +9,7 @@ import { IconDatabase } from '@tabler/icons-react';
 import { ShieldCheckIcon } from '@heroicons/react/24/solid';
 import { ExclamationCircleIcon } from '@heroicons/react/24/outline';
 
+import axios from '@/lib/axios';
 import { signUpFormSchema } from '@/validate/auth';
 import { AuthForm } from '@/types';
 
@@ -29,12 +29,12 @@ export default function Home() {
   const handleSubmit = async () => {
     try {
       if (isRegister) {
-        await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/auth/signup`, {
+        await axios.post('/auth/signup', {
           email: form.values.email,
           password: form.values.password,
         });
       }
-      await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, {
+      await axios.post('/auth/login', {
         email: form.values.email,
         password: form.values.password,
       });
