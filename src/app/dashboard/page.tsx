@@ -5,7 +5,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { Button } from '@mantine/core';
 
 import axios from '@/lib/axios';
-import { UserInfo } from '@/components/UserInfo';
+import UserInfo from '@/components/UserInfo';
 
 export default function Dachboard() {
   const router = useRouter();
