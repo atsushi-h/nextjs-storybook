@@ -1,8 +1,8 @@
 import { List, ThemeIcon, Loader } from '@mantine/core';
 import { IconCircleDashed } from '@tabler/icons-react';
 
-import { useQueryTasks } from '@/hooks/useQueryTasks';
-import TaskItem from '@/components/TaskItem';
+import { useQueryTasks } from '@/features/todo/hooks/useQueryTasks';
+import TaskItem from '@/features/todo/components/TaskItem';
 
 export default function TaskList() {
   const { data: tasks, status } = useQueryTasks();

@@ -1,6 +1,6 @@
 import { Loader } from '@mantine/core';
 
-import { useQueryUser } from '@/hooks/useQueryUser';
+import { useQueryUser } from '@/features/auth/hooks/useQueryUser';
 
 export default function UserInfo() {
   const { data: user, status } = useQueryUser();

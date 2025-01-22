@@ -5,9 +5,9 @@ import { useQueryClient } from '@tanstack/react-query';
 import { Button } from '@mantine/core';
 
 import axios from '@/lib/axios';
-import UserInfo from '@/components/UserInfo';
-import TaskForm from '@/components/TaskForm';
-import TaskList from '@/components/TaskList';
+import UserInfo from '@/features/todo/components/UserInfo';
+import TaskForm from '@/features/todo/components/TaskForm';
+import TaskList from '@/features/todo/components/TaskList';
 
 export default function Dachboard() {
   const router = useRouter();

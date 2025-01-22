@@ -3,8 +3,8 @@ import { useQueryClient, useMutation } from '@tanstack/react-query';
 import { Task } from '@prisma/client';
 
 import axios from '@/lib/axios';
-import { useTaskStore } from '@/store/task';
-import { EditedTask } from '@/types';
+import { useTaskStore } from '@/features/todo/store/task';
+import { EditedTask } from '@/features/todo/types';
 
 export const useMutateTask = () => {
   const queryClient = useQueryClient();

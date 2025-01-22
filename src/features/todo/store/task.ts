@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-import { EditedTask } from '@/types';
+import { EditedTask } from '@/features/todo/types';
 
 type State = {
   editedTask: EditedTask;

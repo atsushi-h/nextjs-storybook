@@ -2,8 +2,8 @@ import { List } from '@mantine/core';
 import { PencilIcon, TrashIcon } from '@heroicons/react/24/solid';
 import { Task } from '@prisma/client';
 
-import { useTaskStore } from '@/store/task';
-import { useMutateTask } from '@/hooks/useMutateTask';
+import { useTaskStore } from '@/features/todo/store/task';
+import { useMutateTask } from '@/features/todo/hooks/useMutateTask';
 
 type Props = Omit<Task, 'createdAt' | 'updatedAt' | 'userId'>;
 

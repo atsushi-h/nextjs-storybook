@@ -2,8 +2,8 @@ import { FormEvent } from 'react';
 import { TextInput, Button, Center } from '@mantine/core';
 import { IconDatabase } from '@tabler/icons-react';
 
-import { useTaskStore } from '@/store/task';
-import { useMutateTask } from '@/hooks/useMutateTask';
+import { useTaskStore } from '@/features/todo/store/task';
+import { useMutateTask } from '@/features/todo/hooks/useMutateTask';
 
 export default function TaskForm() {
   const { editedTask } = useTaskStore();
