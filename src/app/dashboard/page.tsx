@@ -2,7 +2,6 @@
 
 import { useRouter } from 'next/navigation';
 import { useQueryClient } from '@tanstack/react-query';
-import { Button } from '@mantine/core';
 
 import axios from '@/lib/axios';
 import UserInfo from '@/features/todo/components/UserInfo';
@@ -22,7 +21,7 @@ export default function Dachboard() {
 
   return (
     <>
-      <Button onClick={logout}>Logout</Button>
+      <button onClick={logout}>Logout</button>
       <UserInfo />
       <TaskForm />
       <TaskList />

@@ -1,4 +1,3 @@
-import { List } from '@mantine/core';
 import { PencilIcon, TrashIcon } from '@heroicons/react/24/solid';
 import { Task } from '@prisma/client';
 
@@ -12,7 +11,7 @@ export default function TaskItem({ id, title, description }: Props) {
   const { deleteTaskMutation } = useMutateTask();
 
   return (
-    <List.Item>
+    <li>
       <div className="flex mr-10">
         <PencilIcon
           className="mx-1 h-5 w-5 cursor-pointer text-blue-500"
@@ -32,6 +31,6 @@ export default function TaskItem({ id, title, description }: Props) {
         />
       </div>
       <span>{title}</span>
-    </List.Item>
+    </li>
   );
 }

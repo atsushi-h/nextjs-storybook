@@ -2,7 +2,6 @@
 
 import { isServer, QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { MantineProvider } from '@mantine/core';
 
 function makeQueryClient() {
   return new QueryClient({
@@ -31,7 +30,7 @@ export default function Provider({ children }: { children: React.ReactNode }) {
   const queryClient = getQueryClient();
   return (
     <QueryClientProvider client={queryClient}>
-      <MantineProvider>{children}</MantineProvider>
+      {children}
       <ReactQueryDevtools />
     </QueryClientProvider>
   );

@@ -1,4 +1,3 @@
-import { List, ThemeIcon, Loader } from '@mantine/core';
 import { IconCircleDashed } from '@tabler/icons-react';
 
 import { useQueryTasks } from '@/features/todo/hooks/useQueryTasks';
@@ -7,22 +6,13 @@ import TaskItem from '@/features/todo/components/TaskItem';
 export default function TaskList() {
   const { data: tasks, status } = useQueryTasks();
 
-  if (status === 'pending') return <Loader my="lg" color="cyan" />;
+  if (status === 'pending') return <p>Loding...</p>;
 
   return (
-    <List
-      my="lg"
-      spacing="sm"
-      size="sm"
-      icon={
-        <ThemeIcon color="cyan" size={24} radius="xl">
-          <IconCircleDashed size={16} />
-        </ThemeIcon>
-      }
-    >
+    <ul>
       {tasks?.map((task) => (
         <TaskItem key={task.id} id={task.id} title={task.title} description={task.description} />
       ))}
-    </List>
+    </ul>
   );
 }

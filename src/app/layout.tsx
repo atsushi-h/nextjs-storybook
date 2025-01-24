@@ -1,7 +1,5 @@
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
-import '@mantine/core/styles.css';
-import { ColorSchemeScript } from '@mantine/core';
 
 import GlobalClientComponent from './GlobalClientComponent';
 import Provider from './provider';
@@ -30,9 +28,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-        <ColorSchemeScript />
-      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased flex min-h-screen flex-col items-center justify-center`}
       >

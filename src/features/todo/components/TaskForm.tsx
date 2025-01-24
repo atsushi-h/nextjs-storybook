@@ -1,5 +1,4 @@
 import { FormEvent } from 'react';
-import { TextInput, Button, Center } from '@mantine/core';
 import { IconDatabase } from '@tabler/icons-react';
 
 import { useTaskStore } from '@/features/todo/store/task';
@@ -28,7 +27,7 @@ export default function TaskForm() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <TextInput
+      {/* <TextInput
         mt="md"
         placeholder="title"
         value={editedTask.title || ''}
@@ -49,7 +48,7 @@ export default function TaskForm() {
         >
           {editedTask.id === 0 ? 'Create' : 'Update'}
         </Button>
-      </Center>
+      </Center> */}
     </form>
   );
 }
