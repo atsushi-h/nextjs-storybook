@@ -29,7 +29,7 @@ export default function TaskPage() {
     <>
       <Button onClick={logout}>Logout</Button>
       <UserInfo />
-      <TaskForm />
+      <TaskForm tasks={tasks} />
       {tasks && tasks.length && <TaskList tasks={tasks} />}
     </>
   );

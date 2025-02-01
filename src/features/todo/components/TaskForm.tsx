@@ -1,5 +1,7 @@
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Task } from '@prisma/client';
 
 import { useTaskStore } from '@/features/todo/store/task';
 import { useMutateTask } from '@/features/todo/hooks/useMutateTask';
@@ -15,7 +17,11 @@ import {
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 
-export default function TaskForm() {
+type Props = {
+  tasks?: Task[];
+};
+
+export default function TaskForm({ tasks }: Props) {
   const { editTaskId } = useTaskStore();
   const { createTaskMutation, updateTaskMutation } = useMutateTask();
 
@@ -57,6 +63,14 @@ export default function TaskForm() {
       );
     }
   };
+
+  useEffect(() => {
+    const editTask = tasks?.find((task) => task.id === editTaskId);
+    if (editTask) {
+      form.setValue('title', editTask.title, { shouldValidate: true });
+      form.setValue('description', editTask.description || '', { shouldValidate: true });
+    }
+  }, [editTaskId]);
 
   return (
     <Form {...form}>
