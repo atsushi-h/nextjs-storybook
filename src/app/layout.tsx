@@ -5,6 +5,8 @@ import GlobalClientComponent from './GlobalClientComponent';
 import Provider from './provider';
 import './globals.css';
 
+import { Toaster } from '@/components/ui/toaster';
+
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
   variable: '--font-geist-sans',
@@ -36,6 +38,7 @@ export default function RootLayout({
           <main className="flex w-screen flex-1 flex-col items-center justify-center">
             {children}
           </main>
+          <Toaster />
         </Provider>
       </body>
     </html>

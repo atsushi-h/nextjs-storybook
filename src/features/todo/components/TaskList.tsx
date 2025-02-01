@@ -1,16 +1,14 @@
-import { IconCircleDashed } from '@tabler/icons-react';
-
-import { useQueryTasks } from '@/features/todo/hooks/useQueryTasks';
 import TaskItem from '@/features/todo/components/TaskItem';
+import { Task } from '@prisma/client';
 
-export default function TaskList() {
-  const { data: tasks, status } = useQueryTasks();
+type Props = {
+  tasks: Task[];
+};
 
-  if (status === 'pending') return <p>Loding...</p>;
-
+export default function TaskList({ tasks }: Props) {
   return (
     <ul>
-      {tasks?.map((task) => (
+      {tasks.map((task) => (
         <TaskItem key={task.id} id={task.id} title={task.title} description={task.description} />
       ))}
     </ul>

@@ -9,7 +9,7 @@ import { EditedTask } from '@/features/todo/types';
 export const useMutateTask = () => {
   const queryClient = useQueryClient();
   const router = useRouter();
-  const reset = useTaskStore((state) => state.resetEditedTask);
+  const resetEditTaskId = useTaskStore((state) => state.resetEditTaskId);
 
   const createTaskMutation = useMutation({
     mutationFn: async (task: Omit<EditedTask, 'id'>) => {
@@ -21,10 +21,10 @@ export const useMutateTask = () => {
       if (previousTodos) {
         queryClient.setQueryData(['tasks'], [res, ...previousTodos]);
       }
-      reset();
+      resetEditTaskId();
     },
     onError: (err: any) => {
-      reset();
+      resetEditTaskId();
       if (err.response.status === 401 || err.response.status === 403) {
         router.push('/');
       }
@@ -44,10 +44,10 @@ export const useMutateTask = () => {
           previousTodos.map((task) => (task.id === res.id ? res : task)),
         );
       }
-      reset();
+      resetEditTaskId();
     },
     onError: (err: any) => {
-      reset();
+      resetEditTaskId();
       if (err.response.status === 401 || err.response.status === 403) {
         router.push('/');
       }
@@ -66,10 +66,10 @@ export const useMutateTask = () => {
           previousTodos.filter((task) => task.id !== variables),
         );
       }
-      reset();
+      resetEditTaskId();
     },
     onError: (err: any) => {
-      reset();
+      resetEditTaskId();
       if (err.response.status === 401 || err.response.status === 403) {
         router.push('/');
       }

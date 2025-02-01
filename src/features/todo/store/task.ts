@@ -1,22 +1,16 @@
 import { create } from 'zustand';
 
-import { EditedTask } from '@/features/todo/types';
-
 type State = {
-  editedTask: EditedTask;
-  updateEditedTask: (payload: EditedTask) => void;
-  resetEditedTask: () => void;
+  editTaskId: number;
+  updateEditTaskId: (id: number) => void;
+  resetEditTaskId: () => void;
 };
 
 export const useTaskStore = create<State>((set) => ({
-  editedTask: { id: 0, title: '', description: '' },
-  updateEditedTask: (payload) =>
+  editTaskId: 0,
+  updateEditTaskId: (id) =>
     set({
-      editedTask: {
-        id: payload.id,
-        title: payload.title,
-        description: payload.description,
-      },
+      editTaskId: id,
     }),
-  resetEditedTask: () => set({ editedTask: { id: 0, title: '', description: '' } }),
+  resetEditTaskId: () => set({ editTaskId: 0 }),
 }));

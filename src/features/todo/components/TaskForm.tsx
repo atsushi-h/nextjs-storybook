@@ -1,54 +1,96 @@
-import { FormEvent } from 'react';
-import { IconDatabase } from '@tabler/icons-react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 import { useTaskStore } from '@/features/todo/store/task';
 import { useMutateTask } from '@/features/todo/hooks/useMutateTask';
+import { todoFormSchema, TodoFormType } from '@/features/todo/schema';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
 
 export default function TaskForm() {
-  const { editedTask } = useTaskStore();
-  const update = useTaskStore((state) => state.updateEditedTask);
+  const { editTaskId } = useTaskStore();
   const { createTaskMutation, updateTaskMutation } = useMutateTask();
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (editedTask.id === 0) {
-      createTaskMutation.mutate({
-        title: editedTask.title,
-        description: editedTask.description,
-      });
+  const form = useForm<TodoFormType>({
+    defaultValues: {
+      title: '',
+      description: '',
+    },
+    resolver: zodResolver(todoFormSchema),
+  });
+
+  const onSubmit = async (values: TodoFormType) => {
+    if (editTaskId === 0) {
+      createTaskMutation.mutate(
+        {
+          title: values.title,
+          description: values.description,
+        },
+        {
+          onSuccess: () => form.reset(),
+          onError: (error: any) => {
+            console.error('Error: createTaskMutation', error);
+          },
+        },
+      );
     } else {
-      updateTaskMutation.mutate({
-        id: editedTask.id,
-        title: editedTask.title,
-        description: editedTask.description,
-      });
+      updateTaskMutation.mutate(
+        {
+          id: editTaskId,
+          title: values.title,
+          description: values.description,
+        },
+        {
+          onSuccess: () => form.reset(),
+          onError: (error: any) => {
+            console.error('Error: updateTaskMutation', error);
+          },
+        },
+      );
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      {/* <TextInput
-        mt="md"
-        placeholder="title"
-        value={editedTask.title || ''}
-        onChange={(e) => update({ ...editedTask, title: e.target.value })}
-      />
-      <TextInput
-        mt="md"
-        placeholder="description"
-        value={editedTask.description || ''}
-        onChange={(e) => update({ ...editedTask, description: e.target.value })}
-      />
-      <Center mt="lg">
-        <Button
-          disabled={editedTask.title === ''}
-          leftSection={<IconDatabase size={14} />}
-          color="cyan"
-          type="submit"
-        >
-          {editedTask.id === 0 ? 'Create' : 'Update'}
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        <FormField
+          control={form.control}
+          name="title"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Title*</FormLabel>
+              <FormControl>
+                <Input placeholder="title" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="description"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Description</FormLabel>
+              <FormControl>
+                <Input placeholder="description" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <Button type="submit" disabled={!form.formState.isValid}>
+          {editTaskId === 0 ? 'Create' : 'Update'}
         </Button>
-      </Center> */}
-    </form>
+      </form>
+    </Form>
   );
 }

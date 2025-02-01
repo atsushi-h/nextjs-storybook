@@ -7,7 +7,7 @@ import { useMutateTask } from '@/features/todo/hooks/useMutateTask';
 type Props = Omit<Task, 'createdAt' | 'updatedAt' | 'userId'>;
 
 export default function TaskItem({ id, title, description }: Props) {
-  const update = useTaskStore((state) => state.updateEditedTask);
+  const updateEditTaskId = useTaskStore((state) => state.updateEditTaskId);
   const { deleteTaskMutation } = useMutateTask();
 
   return (
@@ -15,13 +15,7 @@ export default function TaskItem({ id, title, description }: Props) {
       <div className="flex mr-10">
         <PencilIcon
           className="mx-1 h-5 w-5 cursor-pointer text-blue-500"
-          onClick={() => {
-            update({
-              id,
-              title,
-              description,
-            });
-          }}
+          onClick={() => updateEditTaskId(id)}
         />
         <TrashIcon
           className="h-5 w-5 cursor-pointer text-blue-500"
