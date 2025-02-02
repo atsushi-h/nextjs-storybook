@@ -6,7 +6,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import axios from '@/lib/axios';
 import { useQueryTasks } from '@/features/todo/hooks/useQueryTasks';
 import UserInfo from '@/features/todo/components/UserInfo';
-import TaskForm from '@/features/todo/components/TaskForm';
+import TaskForm from '@/features/todo/components/ui/TaskForm';
 import TaskList from '@/features/todo/components/TaskList';
 import { Loading } from '@/components/ui/loading';
 import { Button } from '@/components/ui/button';
