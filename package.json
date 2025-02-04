@@ -7,6 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "test": "test-storybook",
+    "test:watch": "test-storybook --watch",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
@@ -42,6 +44,7 @@
     "@storybook/nextjs": "^8.5.3",
     "@storybook/react": "^8.5.3",
     "@storybook/test": "^8.5.3",
+    "@storybook/test-runner": "^0.21.0",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
