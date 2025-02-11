@@ -5,4 +5,4 @@ export const authFormSchema = z.object({
   password: z.string().min(5, { message: 'Password should be min 5 chars' }),
 });
 
-export type AuthUpFormType = z.infer<typeof authFormSchema>;
+export type AuthFormType = z.infer<typeof authFormSchema>;

@@ -19,9 +19,10 @@ import { Button } from '@/components/ui/button';
 
 type Props = {
   tasks?: Task[];
+  onSubmit?: (values: TodoFormType) => void;
 };
 
-export default function TaskForm({ tasks }: Props) {
+export default function TaskForm({ tasks, onSubmit }: Props) {
   const { editTaskId } = useTaskStore();
   const { createTaskMutation, updateTaskMutation } = useMutateTask();
 
@@ -33,7 +34,7 @@ export default function TaskForm({ tasks }: Props) {
     resolver: zodResolver(todoFormSchema),
   });
 
-  const onSubmit = async (values: TodoFormType) => {
+  const defaultOnSubmit = async (values: TodoFormType) => {
     if (editTaskId === 0) {
       createTaskMutation.mutate(
         {
@@ -74,15 +75,15 @@ export default function TaskForm({ tasks }: Props) {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form onSubmit={form.handleSubmit(onSubmit || defaultOnSubmit)} className="space-y-8">
         <FormField
           control={form.control}
           name="title"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Title*</FormLabel>
+              <FormLabel htmlFor="title">Title*</FormLabel>
               <FormControl>
-                <Input placeholder="title" {...field} />
+                <Input id="title" placeholder="title" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -93,9 +94,9 @@ export default function TaskForm({ tasks }: Props) {
           name="description"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Description</FormLabel>
+              <FormLabel htmlFor="description">Description</FormLabel>
               <FormControl>
-                <Input placeholder="description" {...field} />
+                <Input id="description" placeholder="description" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
