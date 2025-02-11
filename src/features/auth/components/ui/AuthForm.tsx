@@ -7,7 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { ShieldCheckIcon } from '@heroicons/react/24/solid';
 
 import axios from '@/lib/axios';
-import { authFormSchema, AuthUpFormType } from '@/features/auth/schema';
+import { authFormSchema, AuthFormType } from '@/features/auth/schema';
 import {
   Form,
   FormControl,
@@ -20,12 +20,16 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
 
-export default function AuthForm() {
+type Props = {
+  onSubmit?: (values: AuthFormType) => void;
+};
+
+export default function AuthForm({ onSubmit }: Props) {
   const router = useRouter();
   const { toast } = useToast();
   const [isRegister, setIsRegister] = useState(false);
 
-  const form = useForm<AuthUpFormType>({
+  const form = useForm<AuthFormType>({
     defaultValues: {
       email: '',
       password: '',
@@ -33,7 +37,7 @@ export default function AuthForm() {
     resolver: zodResolver(authFormSchema),
   });
 
-  const onSubmit = async (values: AuthUpFormType) => {
+  const defaultOnSubmit = async (values: AuthFormType) => {
     try {
       if (isRegister) {
         await axios.post('/auth/signup', {
@@ -60,15 +64,15 @@ export default function AuthForm() {
     <>
       <ShieldCheckIcon className="h-16 w-16 text-blue-500" />
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        <form onSubmit={form.handleSubmit(onSubmit || defaultOnSubmit)} className="space-y-8">
           <FormField
             control={form.control}
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Email*</FormLabel>
+                <FormLabel htmlFor="email">Email*</FormLabel>
                 <FormControl>
-                  <Input placeholder="example@gmail.com" {...field} />
+                  <Input id="email" placeholder="example@gmail.com" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -79,9 +83,9 @@ export default function AuthForm() {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Password*</FormLabel>
+                <FormLabel htmlFor="password">Password*</FormLabel>
                 <FormControl>
-                  <Input type="password" placeholder="password" {...field} />
+                  <Input id="password" type="password" placeholder="password" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
