@@ -30,7 +30,7 @@ export default function TaskPage() {
       <Button onClick={logout}>Logout</Button>
       <UserInfo />
       <TaskForm tasks={tasks} />
-      {tasks && tasks.length && <TaskList tasks={tasks} />}
+      <div className="mt-10">{tasks && tasks.length && <TaskList tasks={tasks} />}</div>
     </>
   );
 }
