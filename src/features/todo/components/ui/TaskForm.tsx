@@ -1,5 +1,7 @@
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Task } from '@prisma/client';
 
 import { useTaskStore } from '@/features/todo/store/task';
 import { useMutateTask } from '@/features/todo/hooks/useMutateTask';
@@ -15,7 +17,12 @@ import {
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 
-export default function TaskForm() {
+type Props = {
+  tasks?: Task[];
+  onSubmit?: (values: TodoFormType) => void;
+};
+
+export default function TaskForm({ tasks, onSubmit }: Props) {
   const { editTaskId } = useTaskStore();
   const { createTaskMutation, updateTaskMutation } = useMutateTask();
 
@@ -27,7 +34,7 @@ export default function TaskForm() {
     resolver: zodResolver(todoFormSchema),
   });
 
-  const onSubmit = async (values: TodoFormType) => {
+  const defaultOnSubmit = async (values: TodoFormType) => {
     if (editTaskId === 0) {
       createTaskMutation.mutate(
         {
@@ -58,17 +65,25 @@ export default function TaskForm() {
     }
   };
 
+  useEffect(() => {
+    const editTask = tasks?.find((task) => task.id === editTaskId);
+    if (editTask) {
+      form.setValue('title', editTask.title, { shouldValidate: true });
+      form.setValue('description', editTask.description || '', { shouldValidate: true });
+    }
+  }, [editTaskId]);
+
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form onSubmit={form.handleSubmit(onSubmit || defaultOnSubmit)} className="space-y-8">
         <FormField
           control={form.control}
           name="title"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Title*</FormLabel>
+              <FormLabel htmlFor="title">Title*</FormLabel>
               <FormControl>
-                <Input placeholder="title" {...field} />
+                <Input id="title" placeholder="title" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -79,9 +94,9 @@ export default function TaskForm() {
           name="description"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Description</FormLabel>
+              <FormLabel htmlFor="description">Description</FormLabel>
               <FormControl>
-                <Input placeholder="description" {...field} />
+                <Input id="description" placeholder="description" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
