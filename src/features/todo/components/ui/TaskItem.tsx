@@ -11,8 +11,9 @@ export default function TaskItem({ id, title, description }: Props) {
   const { deleteTaskMutation } = useMutateTask();
 
   return (
-    <li>
-      <div className="flex mr-10">
+    <li className="flex mb-2">
+      <span>{title}</span>
+      <div className="flex ml-10">
         <PencilIcon
           className="mx-1 h-5 w-5 cursor-pointer text-blue-500"
           onClick={() => updateEditTaskId(id)}
@@ -24,7 +25,6 @@ export default function TaskItem({ id, title, description }: Props) {
           }}
         />
       </div>
-      <span>{title}</span>
     </li>
   );
 }
