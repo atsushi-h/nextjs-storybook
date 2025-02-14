@@ -21,7 +21,7 @@ export const Default: Story = {
   play: async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
 
-    const titleInput = canvas.getByPlaceholderText('title-hoge');
+    const titleInput = canvas.getByPlaceholderText('title');
     const descriptionInput = canvas.getByPlaceholderText('description');
     const submitButton = canvas.getByRole('button', { name: /Create|Update/i });
 
