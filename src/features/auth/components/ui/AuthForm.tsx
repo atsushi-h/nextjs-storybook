@@ -62,7 +62,7 @@ export default function AuthForm({ onSubmit }: Props) {
 
   return (
     <>
-      <ShieldCheckIcon className="h-16 w-16 text-blue-500" />
+      <ShieldCheckIcon className="h-16 w-16 text-blue-500 mx-auto" />
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit || defaultOnSubmit)} className="space-y-8">
           <FormField
