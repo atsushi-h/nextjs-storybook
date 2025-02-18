@@ -51,11 +51,25 @@ export default function AuthForm({ onSubmit }: Props) {
       });
       form.reset();
       router.push('/dashboard');
-    } catch (e: any) {
+    } catch (e: unknown) {
       console.error(e);
+
+      let errorMessage = 'An unexpected error occurred';
+
+      if (e instanceof Error) {
+        errorMessage = e.message;
+      }
+
+      if (typeof e === 'object' && e !== null && 'response' in e) {
+        const axiosError = e as { response?: { data?: { message?: string } } };
+        if (axiosError.response?.data?.message) {
+          errorMessage = axiosError.response.data.message;
+        }
+      }
+
       toast({
         title: 'Server Error',
-        description: e.response.data.message,
+        description: errorMessage,
       });
     }
   };
@@ -92,9 +106,13 @@ export default function AuthForm({ onSubmit }: Props) {
             )}
           />
           <Button type="submit">{isRegister ? 'Register' : 'Login'}</Button>
-          <p className="mt-1 cursor-pointer" onClick={() => setIsRegister(!isRegister)}>
+          <button
+            type="button"
+            className="mt-1 cursor-pointer bg-transparent border-none p-0"
+            onClick={() => setIsRegister(!isRegister)}
+          >
             {isRegister ? 'Have an account? Login' : "Don't have an account? Register"}
-          </p>
+          </button>
         </form>
       </Form>
     </>

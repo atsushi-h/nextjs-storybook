@@ -43,8 +43,12 @@ export default function TaskForm({ tasks, onSubmit }: Props) {
         },
         {
           onSuccess: () => form.reset(),
-          onError: (error: any) => {
-            console.error('Error: createTaskMutation', error);
+          onError: (error: unknown) => {
+            if (error instanceof Error) {
+              console.error('Error: createTaskMutation', error.message);
+            } else {
+              console.error('Error: createTaskMutation', error);
+            }
           },
         },
       );
@@ -57,8 +61,12 @@ export default function TaskForm({ tasks, onSubmit }: Props) {
         },
         {
           onSuccess: () => form.reset(),
-          onError: (error: any) => {
-            console.error('Error: updateTaskMutation', error);
+          onError: (error: unknown) => {
+            if (error instanceof Error) {
+              console.error('Error: updateTaskMutation', error.message);
+            } else {
+              console.error('Error: updateTaskMutation', error);
+            }
           },
         },
       );
@@ -73,7 +81,7 @@ export default function TaskForm({ tasks, onSubmit }: Props) {
         shouldValidate: true,
       });
     }
-  }, [editTaskId]);
+  }, [editTaskId, tasks, form.setValue]);
 
   return (
     <Form {...form}>

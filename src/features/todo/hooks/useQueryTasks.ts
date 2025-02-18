@@ -11,9 +11,12 @@ export const useQueryTasks = () => {
     try {
       const { data } = await axios.get<Task[]>('/todo');
       return data;
-    } catch (err: any) {
-      if (err.response?.status === 401 || err.response?.status === 403) {
-        router.push('/');
+    } catch (err: unknown) {
+      if (err instanceof Error && 'response' in err && err.response) {
+        const response = err.response as { status?: number };
+        if (response.status === 401 || response.status === 403) {
+          router.push('/');
+        }
       }
       throw err;
     }
