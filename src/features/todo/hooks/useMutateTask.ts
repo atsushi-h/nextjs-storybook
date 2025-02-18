@@ -1,10 +1,10 @@
+import type { Task } from '@prisma/client';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
-import { useQueryClient, useMutation } from '@tanstack/react-query';
-import { Task } from '@prisma/client';
 
-import axios from '@/lib/axios';
 import { useTaskStore } from '@/features/todo/store/task';
-import { EditedTask } from '@/features/todo/types';
+import type { EditedTask } from '@/features/todo/types';
+import axios from '@/lib/axios';
 
 export const useMutateTask = () => {
   const queryClient = useQueryClient();

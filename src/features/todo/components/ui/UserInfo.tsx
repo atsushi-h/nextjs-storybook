@@ -1,5 +1,5 @@
-import { useQueryUser } from '@/features/auth/hooks/useQueryUser';
 import { Loading } from '@/components/ui/loading';
+import { useQueryUser } from '@/features/auth/hooks/useQueryUser';
 
 export default function UserInfo() {
   const { data: user, status } = useQueryUser();

@@ -1,6 +1,6 @@
-import { useRouter } from 'next/navigation';
+import type { Task } from '@prisma/client';
 import { useQuery } from '@tanstack/react-query';
-import { Task } from '@prisma/client';
+import { useRouter } from 'next/navigation';
 
 import axios from '@/lib/axios';
 

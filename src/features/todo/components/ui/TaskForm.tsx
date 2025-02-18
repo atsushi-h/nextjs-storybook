@@ -1,11 +1,9 @@
+import { zodResolver } from '@hookform/resolvers/zod';
+import type { Task } from '@prisma/client';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Task } from '@prisma/client';
 
-import { useTaskStore } from '@/features/todo/store/task';
-import { useMutateTask } from '@/features/todo/hooks/useMutateTask';
-import { todoFormSchema, TodoFormType } from '@/features/todo/schema';
+import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
@@ -15,7 +13,9 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
+import { useMutateTask } from '@/features/todo/hooks/useMutateTask';
+import { type TodoFormType, todoFormSchema } from '@/features/todo/schema';
+import { useTaskStore } from '@/features/todo/store/task';
 
 type Props = {
   tasks?: Task[];
@@ -69,7 +69,9 @@ export default function TaskForm({ tasks, onSubmit }: Props) {
     const editTask = tasks?.find((task) => task.id === editTaskId);
     if (editTask) {
       form.setValue('title', editTask.title, { shouldValidate: true });
-      form.setValue('description', editTask.description || '', { shouldValidate: true });
+      form.setValue('description', editTask.description || '', {
+        shouldValidate: true,
+      });
     }
   }, [editTaskId]);
 

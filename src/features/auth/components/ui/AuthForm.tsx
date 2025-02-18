@@ -1,13 +1,12 @@
 'use client';
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { ShieldCheckIcon } from '@heroicons/react/24/solid';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 
-import axios from '@/lib/axios';
-import { authFormSchema, AuthFormType } from '@/features/auth/schema';
+import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
@@ -17,8 +16,9 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
+import { type AuthFormType, authFormSchema } from '@/features/auth/schema';
 import { useToast } from '@/hooks/use-toast';
+import axios from '@/lib/axios';
 
 type Props = {
   onSubmit?: (values: AuthFormType) => void;
