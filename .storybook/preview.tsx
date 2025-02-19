@@ -1,7 +1,7 @@
-import React from 'react';
 import type { Preview } from '@storybook/react';
-import { initialize, mswLoader } from 'msw-storybook-addon';
 import { QueryClientProvider } from '@tanstack/react-query';
+import { initialize, mswLoader } from 'msw-storybook-addon';
+import React from 'react';
 
 import { makeQueryClient } from '../src/app/provider';
 import '../src/app/globals.css';

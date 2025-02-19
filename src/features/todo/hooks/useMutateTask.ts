@@ -1,10 +1,10 @@
+import type { Task } from '@prisma/client';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
-import { useQueryClient, useMutation } from '@tanstack/react-query';
-import { Task } from '@prisma/client';
 
-import axios from '@/lib/axios';
 import { useTaskStore } from '@/features/todo/store/task';
-import { EditedTask } from '@/features/todo/types';
+import type { EditedTask } from '@/features/todo/types';
+import axios from '@/lib/axios';
 
 export const useMutateTask = () => {
   const queryClient = useQueryClient();
@@ -23,10 +23,13 @@ export const useMutateTask = () => {
       }
       resetEditTaskId();
     },
-    onError: (err: any) => {
+    onError: (err: unknown) => {
       resetEditTaskId();
-      if (err.response.status === 401 || err.response.status === 403) {
-        router.push('/');
+      if (err instanceof Error && 'response' in err && err.response) {
+        const axiosError = err as { response?: { status?: number } };
+        if (axiosError.response?.status === 401 || axiosError.response?.status === 403) {
+          router.push('/');
+        }
       }
     },
   });
@@ -46,10 +49,13 @@ export const useMutateTask = () => {
       }
       resetEditTaskId();
     },
-    onError: (err: any) => {
+    onError: (err: unknown) => {
       resetEditTaskId();
-      if (err.response.status === 401 || err.response.status === 403) {
-        router.push('/');
+      if (err instanceof Error && 'response' in err && err.response) {
+        const axiosError = err as { response?: { status?: number } };
+        if (axiosError.response?.status === 401 || axiosError.response?.status === 403) {
+          router.push('/');
+        }
       }
     },
   });
@@ -68,10 +74,13 @@ export const useMutateTask = () => {
       }
       resetEditTaskId();
     },
-    onError: (err: any) => {
+    onError: (err: unknown) => {
       resetEditTaskId();
-      if (err.response.status === 401 || err.response.status === 403) {
-        router.push('/');
+      if (err instanceof Error && 'response' in err && err.response) {
+        const axiosError = err as { response?: { status?: number } };
+        if (axiosError.response?.status === 401 || axiosError.response?.status === 403) {
+          router.push('/');
+        }
       }
     },
   });

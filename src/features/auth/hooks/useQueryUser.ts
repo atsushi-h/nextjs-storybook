@@ -1,6 +1,6 @@
-import { useRouter } from 'next/navigation';
+import type { User } from '@prisma/client';
 import { useQuery } from '@tanstack/react-query';
-import { User } from '@prisma/client';
+import { useRouter } from 'next/navigation';
 
 import axios from '@/lib/axios';
 
@@ -10,9 +10,12 @@ export const useQueryUser = () => {
     try {
       const { data } = await axios.get<Omit<User, 'hashedPassword'>>('/user');
       return data;
-    } catch (err: any) {
-      if (err.response?.status === 401 || err.response?.status === 403) {
-        router.push('/');
+    } catch (err: unknown) {
+      if (err instanceof Error && 'response' in err && err.response) {
+        const response = err.response as { status?: number };
+        if (response.status === 401 || response.status === 403) {
+          router.push('/');
+        }
       }
       throw err;
     }

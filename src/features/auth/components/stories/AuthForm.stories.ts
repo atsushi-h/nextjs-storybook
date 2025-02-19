@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { expect, userEvent, within, waitFor, fn } from '@storybook/test';
+import { expect, fn, userEvent, waitFor, within } from '@storybook/test';
 
 import AuthForm from '@/features/auth/components/ui/AuthForm';
 
@@ -23,7 +23,7 @@ export const Default: Story = {
 
     const emailInput = canvas.getByPlaceholderText('example@gmail.com');
     const passwordInput = canvas.getByPlaceholderText('password');
-    const submitButton = canvas.getByRole('button', { name: /Register|Login/i });
+    const submitButton = canvas.getByRole('button', { name: /^(Register|Login)$/ });
 
     await expect(emailInput).toBeInTheDocument();
     await expect(passwordInput).toBeInTheDocument();

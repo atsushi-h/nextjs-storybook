@@ -1,8 +1,8 @@
 import { PencilIcon, TrashIcon } from '@heroicons/react/24/solid';
-import { Task } from '@prisma/client';
+import type { Task } from '@prisma/client';
 
-import { useTaskStore } from '@/features/todo/store/task';
 import { useMutateTask } from '@/features/todo/hooks/useMutateTask';
+import { useTaskStore } from '@/features/todo/store/task';
 
 type Props = Omit<Task, 'createdAt' | 'updatedAt' | 'userId'>;
 

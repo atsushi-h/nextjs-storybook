@@ -1,5 +1,5 @@
 import TaskItem from '@/features/todo/components/ui/TaskItem';
-import { Task } from '@prisma/client';
+import type { Task } from '@prisma/client';
 
 type Props = {
   tasks: Task[];
