@@ -106,13 +106,15 @@ export default function AuthForm({ onSubmit }: Props) {
             )}
           />
           <Button type="submit">{isRegister ? 'Register' : 'Login'}</Button>
-          <button
-            type="button"
-            className="mt-1 cursor-pointer bg-transparent border-none p-0"
-            onClick={() => setIsRegister(!isRegister)}
-          >
-            {isRegister ? 'Have an account? Login' : "Don't have an account? Register"}
-          </button>
+          <div>
+            <button
+              type="button"
+              className="cursor-pointer bg-transparent border-none p-0"
+              onClick={() => setIsRegister(!isRegister)}
+            >
+              {isRegister ? 'Have an account? Login' : "Don't have an account? Register"}
+            </button>
+          </div>
         </form>
       </Form>
     </>
