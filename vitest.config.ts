@@ -22,5 +22,11 @@ export default defineConfig({
       provider: 'playwright',
     },
     setupFiles: ['.storybook/vitest.setup.ts'],
+    environment: 'jsdom',
+  },
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src'),
+    },
   },
 });
