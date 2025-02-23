@@ -27,4 +27,4 @@ jobs:
         run: npm run format:check
 
       - name: Run tests
-        run: npm test -- --run --no-threads --browser.headless --browser.name=chromium
+        run: npm test -- --run --pool=threads --poolOptions.threads.singleThread
